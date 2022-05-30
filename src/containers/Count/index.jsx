@@ -1,15 +1,22 @@
-import CountUI from "../../components/Count"
-import { connect } from "react-redux"
-import {createIncrementAction,createDecrementAction,createIncrementAsyncAction} from "../../redux/count_action"
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {createIncrementAction} from "../../redux/count_action"
+class Count extends Component {
 
-function mapStateToProps(state){
-    return  {count:state}
+  add = ()=>{
+    this.props.jiafa(1)
+  }
+
+  render() {
+    return (
+      <div>
+        求和为：{this.props.he}
+        <button onClick={this.add}>点我加1</button>
+      </div>
+    );
+  }
 }
-function mapDispatchToProps(dispatch){
-    return {
-        jia:number =>dispatch(createIncrementAction(number)),
-        jian:number =>dispatch(createDecrementAction(number)),
-        yibu:(number,time)=>dispatch(createIncrementAsyncAction(number,time)),
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(CountUI)
+export default connect(
+  state =>  ({he:state}),
+  {jiafa:createIncrementAction}
+)(Count)
